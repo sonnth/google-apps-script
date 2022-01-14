@@ -1,0 +1,43 @@
+/**
+ * Creates a Sheets API service object and prints the names and majors of
+ * students in a sample spreadsheet:
+ * https://docs.google.com/spreadsheets/d/1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgvE2upms/edit
+ */
+function main() {
+  var spreadsheetId = '1j_3xmlPFa-8_Ie88sLsKBnFOfP-IUurrIqUyL6lXLJY';
+
+  var rangeName = 'API List!D4:D92';
+  var values = Sheets.Spreadsheets.Values.get(spreadsheetId, rangeName).values;
+  if (!values) {
+    Logger.log('No data found.');
+  } else {
+    for (var row = 1; row < values.length; row++) {
+      // Print columns A and E, which correspond to indices 0 and 4.
+      getDataMakeNewSheet(values[row][0])
+    }
+  }
+}
+
+function getDataMakeNewSheet(ss, newSheetName, feature, method, url) {
+  const sourceSheet = ss.getSheetByName('Format');
+  sourceSheet.copyTo(ss).setName(newSheetName).activate();
+  const newSourceSheet = ss.getSheetByName(newSheetName);
+  newSourceSheet.getRange('C2').setValue(method);
+  newSourceSheet.getRange('C3').setValue(newSheetName);
+  newSourceSheet.getRange('C4').setValue(url);
+}
+
+function getSheet() {
+  var ss = SpreadsheetApp.openById("1j_3xmlPFa-8_Ie88sLsKBnFOfP-IUurrIqUyL6lXLJY");
+  const sourceSheet = ss.getSheetByName('API List');
+  var values = sourceSheet.getDataRange().getValues();
+  for (i = 3; i < 10; i++) {
+    var feature = values[i][2];
+    var newSheetName = values[i][3];
+    var method = values[i][13];
+    var url = values[i][14];
+    getDataMakeNewSheet(ss, newSheetName, feature, method, url)
+  Logger.log(newSheetName);
+  }
+
+}

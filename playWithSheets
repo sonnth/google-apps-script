@@ -4,7 +4,7 @@
  * https://docs.google.com/spreadsheets/d/1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgvE2upms/edit
  */
 function main() {
-  var spreadsheetId = '1j_3xmlPFa-8_Ie88sLsKBnFOfP-IUurrIqUyL6lXLJY';
+  var spreadsheetId = 'example';
 
   var rangeName = 'API List!D4:D92';
   var values = Sheets.Spreadsheets.Values.get(spreadsheetId, rangeName).values;
@@ -28,7 +28,7 @@ function getDataMakeNewSheet(ss, newSheetName, feature, method, url) {
 }
 
 function getSheet() {
-  var ss = SpreadsheetApp.openById("1j_3xmlPFa-8_Ie88sLsKBnFOfP-IUurrIqUyL6lXLJY");
+  var ss = SpreadsheetApp.openById('example');
   const sourceSheet = ss.getSheetByName('API List');
   var values = sourceSheet.getDataRange().getValues();
   for (i = 3; i < 10; i++) {
